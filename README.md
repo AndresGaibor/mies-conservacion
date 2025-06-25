@@ -124,4 +124,61 @@ El archivo `titulos_imagenes.xlsx` contiene:
 - **Nombre Original**: Nombre del archivo original
 - **Estado**: Si se procesó exitosamente o hubo errores
 
+## 🔧 Despliegue con PM2
+
+### Instalación de PM2
+```bash
+# Instalar PM2 globalmente
+npm install -g pm2
+
+# O con bun
+bun add -g pm2
+```
+
+### Comandos de PM2
+```bash
+# Compilar frontend
+bun run build-frontend
+
+# Iniciar la aplicación
+bun run pm2:start
+
+# Ver estado
+bun run pm2:status
+
+# Ver logs en tiempo real
+bun run pm2:logs
+
+# Reiniciar la aplicación
+bun run pm2:restart
+
+# Recargar sin downtime
+bun run pm2:reload
+
+# Detener la aplicación
+bun run pm2:stop
+
+# Eliminar del PM2
+bun run pm2:delete
+
+# Monitor en tiempo real
+bun run pm2:monit
+```
+
+### Configuración de Producción
+El archivo `ecosystem.config.js` está configurado para:
+- **Auto-restart** en caso de fallos
+- **Logs rotativos** en `./logs/`
+- **Límite de memoria** de 1GB
+- **Variables de entorno** separadas por ambiente
+- **Configuración de deployment** para servidores remotos
+
+### Variables de Entorno de Producción
+```bash
+# .env para producción
+NODE_ENV=production
+PORT=3001
+GEMINI_API_KEY=tu_api_key_de_produccion
+```
+
 This project was created using `bun init` in bun v1.2.15. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.
