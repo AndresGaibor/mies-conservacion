@@ -24,7 +24,7 @@ mkdir -p logs
 
 # Iniciar con PM2
 echo "🔄 Iniciando aplicación con PM2..."
-pm2 start ecosystem.config.js --env $ENVIRONMENT
+pm2 start ecosystem.config.cjs --env $ENVIRONMENT
 
 # Mostrar estado
 echo "📊 Estado de la aplicación:"

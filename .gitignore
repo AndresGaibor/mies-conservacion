@@ -21,7 +21,7 @@ report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 
 # PM2
 .pm2/
-ecosystem.config.js.bak
+ecosystem.config.cjs.bak
 
 # Environment variables
 .env
