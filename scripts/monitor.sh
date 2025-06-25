@@ -3,6 +3,9 @@
 # Script de monitoreo para MIES Conservación
 # Uso: ./monitor.sh
 
+# Cambiar al directorio raíz del proyecto
+cd "$(dirname "$0")/.."
+
 echo "🔍 Monitor de MIES Conservación"
 echo "================================"
 

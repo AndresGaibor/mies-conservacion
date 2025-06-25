@@ -69,6 +69,15 @@ app.get('/', (req: Request, res: Response) => {
   res.sendFile(path.join(__dirname, '../public', 'index.html'));
 });
 
+// Desktop version route
+app.get('/desktop', (req: Request, res: Response) => {
+  res.sendFile(path.join(__dirname, '../public', 'desktop.html'));
+});
+
+app.get('/desktop.html', (req: Request, res: Response) => {
+  res.sendFile(path.join(__dirname, '../public', 'desktop.html'));
+});
+
 // Health check endpoint
 app.get('/api/health', (req: Request, res: Response) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });

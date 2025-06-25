@@ -3,6 +3,9 @@
 # Script de inicio rápido para MIES Conservación con PM2
 # Uso: ./start-pm2.sh [environment]
 
+# Cambiar al directorio raíz del proyecto
+cd "$(dirname "$0")/.."
+
 ENVIRONMENT=${1:-production}
 
 echo "🚀 Iniciando MIES Conservación con PM2..."
@@ -16,7 +19,7 @@ fi
 
 # Compilar frontend
 echo "📦 Compilando frontend..."
-cd public && bun build src/app.ts --outfile app.js --target browser
+cd public && bun build src/app.ts --outfile app.js --target browser && bun build src/desktop.ts --outfile desktop.js --target browser
 cd ..
 
 # Crear directorio de logs si no existe

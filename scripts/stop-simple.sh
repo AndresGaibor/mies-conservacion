@@ -3,6 +3,9 @@
 # Script para detener MIES Conservación
 # Uso: ./stop-simple.sh
 
+# Cambiar al directorio raíz del proyecto
+cd "$(dirname "$0")/.."
+
 echo "⏹️  Deteniendo MIES Conservación..."
 
 if [ -f "logs/server.pid" ]; then
@@ -17,8 +20,8 @@ if [ -f "logs/server.pid" ]; then
     fi
 else
     echo "⚠️  Archivo PID no encontrado"
-    # Intentar matar todos los procesos bun que ejecuten server.ts
-    pkill -f "bun run server.ts"
+    # Intentar matar todos los procesos bun que ejecuten src/server.ts
+    pkill -f "bun run src/server.ts"
     if [ $? -eq 0 ]; then
         echo "✅ Procesos de servidor detenidos"
     else

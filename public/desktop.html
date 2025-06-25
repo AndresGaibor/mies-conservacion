@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MIES Conservación - Escritorio</title>
+    <link rel="stylesheet" href="styles-desktop.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#2563eb">
+</head>
+<body>
+    <div class="app">
+        <header class="header">
+            <h1>MIES Conservación - Escritorio</h1>
+            <p>Procesamiento masivo de imágenes con IA</p>
+            <nav class="nav">
+                <a href="/" class="nav-link">📱 Versión Móvil</a>
+                <a href="/desktop.html" class="nav-link active">💻 Versión Escritorio</a>
+            </nav>
+        </header>
+
+        <main class="main">
+            <!-- Upload Section -->
+            <section class="upload-section">
+                <div class="upload-area" id="uploadArea">
+                    <div class="upload-icon">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
+                        </svg>
+                    </div>
+                    <h3>Arrastra y suelta imágenes aquí</h3>
+                    <p>O haz clic para seleccionar archivos</p>
+                    <input type="file" id="fileInput" multiple accept="image/*,.heic,.HEIC" style="display: none;">
+                    <button id="selectFilesBtn" class="btn-primary">Seleccionar Archivos</button>
+                </div>
+            </section>
+
+            <!-- Processing Section -->
+            <section class="processing-section" id="processingSection" style="display: none;">
+                <h2>Procesando Imágenes</h2>
+                <div class="processing-stats">
+                    <div class="stat">
+                        <span class="stat-value" id="totalFiles">0</span>
+                        <span class="stat-label">Total</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-value" id="processedFiles">0</span>
+                        <span class="stat-label">Procesadas</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-value" id="pendingFiles">0</span>
+                        <span class="stat-label">Pendientes</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-value" id="failedFiles">0</span>
+                        <span class="stat-label">Errores</span>
+                    </div>
+                </div>
+                
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                
+                <div class="processing-actions">
+                    <button id="pauseBtn" class="btn-secondary">⏸️ Pausar</button>
+                    <button id="cancelBtn" class="btn-danger">❌ Cancelar</button>
+                </div>
+            </section>
+
+            <!-- Queue Section -->
+            <section class="queue-section" id="queueSection" style="display: none;">
+                <h2>Cola de Procesamiento</h2>
+                <div class="queue-list" id="queueList"></div>
+            </section>
+
+            <!-- Results Section -->
+            <section class="results-section" id="resultsSection" style="display: none;">
+                <div class="results-header">
+                    <h2>Resultados</h2>
+                    <div class="results-actions">
+                        <button id="downloadAllBtn" class="btn-primary">📥 Descargar Todo</button>
+                        <button id="clearResultsBtn" class="btn-secondary">🗑️ Limpiar</button>
+                        <button id="newBatchBtn" class="btn-success">📄 Nuevo Lote</button>
+                    </div>
+                </div>
+                <div class="results-grid" id="resultsGrid"></div>
+            </section>
+
+            <!-- Settings Panel -->
+            <section class="settings-section">
+                <h3>Configuración</h3>
+                <div class="settings-grid">
+                    <div class="setting-item">
+                        <label for="concurrentUploads">Procesamiento simultáneo:</label>
+                        <select id="concurrentUploads">
+                            <option value="1">1 imagen</option>
+                            <option value="2" selected>2 imágenes</option>
+                            <option value="3">3 imágenes</option>
+                            <option value="5">5 imágenes</option>
+                        </select>
+                    </div>
+                    <div class="setting-item">
+                        <label for="autoDownload">Auto-descarga:</label>
+                        <input type="checkbox" id="autoDownload">
+                    </div>
+                    <div class="setting-item">
+                        <label for="qualityLevel">Calidad de salida:</label>
+                        <select id="qualityLevel">
+                            <option value="high" selected>Alta</option>
+                            <option value="medium">Media</option>
+                            <option value="low">Baja</option>
+                        </select>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Toast Notifications -->
+        <div id="toastContainer" class="toast-container"></div>
+
+        <!-- Loading Overlay -->
+        <div id="loadingOverlay" class="loading-overlay" style="display: none;">
+            <div class="loading-spinner"></div>
+            <p>Inicializando...</p>
+        </div>
+    </div>
+
+    <script src="desktop.js"></script>
+</body>
+</html>

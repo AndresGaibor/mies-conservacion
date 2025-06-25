@@ -3,6 +3,9 @@
 # Script de inicio simple para MIES Conservación
 # Uso: ./start-simple.sh
 
+# Cambiar al directorio raíz del proyecto
+cd "$(dirname "$0")/.."
+
 echo "🚀 Iniciando MIES Conservación..."
 
 # Crear directorio de logs si no existe
@@ -10,7 +13,7 @@ mkdir -p logs
 
 # Compilar frontend
 echo "📦 Compilando frontend..."
-cd public && bun build src/app.ts --outfile app.js --target browser
+cd public && bun build src/app.ts --outfile app.js --target browser && bun build src/desktop.ts --outfile desktop.js --target browser
 cd ..
 
 # Verificar que el archivo .env existe

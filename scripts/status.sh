@@ -3,6 +3,9 @@
 # Script de estado para MIES Conservación
 # Uso: ./status.sh
 
+# Cambiar al directorio raíz del proyecto
+cd "$(dirname "$0")/.."
+
 echo "📊 Estado de MIES Conservación"
 echo "=============================="
 
