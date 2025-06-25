@@ -5,6 +5,10 @@ node_modules
 out
 dist
 *.tgz
+fotos
+fotos_resultado
+
+*.xlsx
 
 # code coverage
 coverage
