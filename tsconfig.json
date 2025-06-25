@@ -24,6 +24,23 @@
     // Some stricter flags (disabled by default)
     "noUnusedLocals": false,
     "noUnusedParameters": false,
-    "noPropertyAccessFromIndexSignature": false
-  }
+    "noPropertyAccessFromIndexSignature": false,
+
+    // Base URL for absolute imports
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "@services/*": ["src/services/*"],
+      "@types/*": ["src/types/*"]
+    }
+  },
+  "include": [
+    "src/**/*",
+    "public/src/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "logs"
+  ]
 }

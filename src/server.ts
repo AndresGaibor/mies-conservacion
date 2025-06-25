@@ -1,10 +1,12 @@
-import express, { Request, Response, NextFunction } from 'express';
+import express from 'express';
+import type { Request, Response, NextFunction } from 'express';
 import multer, { MulterError } from 'multer';
+import type { FileFilterCallback } from 'multer';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import cors from 'cors';
 import { config } from 'dotenv';
-import { ImageProcessor } from './imageProcessor';
+import { ImageProcessor } from './services/imageProcessor';
 
 // Load environment variables
 config();
@@ -21,7 +23,7 @@ const imageProcessor = new ImageProcessor(process.env.GEMINI_API_KEY || '');
 // Middleware
 app.use(cors());
 app.use(express.json());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, '../public')));
 
 // Types for request with file
 interface MulterFile {
@@ -32,7 +34,7 @@ interface MulterFile {
 }
 
 interface MulterRequest extends Request {
-  file?: MulterFile;
+  file?: Express.Multer.File;
 }
 
 // Configure multer for file uploads
@@ -42,7 +44,7 @@ const upload = multer({
   limits: {
     fileSize: 10 * 1024 * 1024, // 10MB limit
   },
-  fileFilter: (req: Request, file: MulterFile, cb: multer.FileFilterCallback) => {
+  fileFilter: (req: Request, file: Express.Multer.File, cb: FileFilterCallback) => {
     const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/heic', 'image/webp'];
     if (allowedTypes.includes(file.mimetype)) {
       cb(null, true);
@@ -64,7 +66,7 @@ async function initializeApp(): Promise<void> {
 
 // Routes
 app.get('/', (req: Request, res: Response) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+  res.sendFile(path.join(__dirname, '../public', 'index.html'));
 });
 
 // Health check endpoint
@@ -122,8 +124,13 @@ app.get('/api/images', async (req: Request, res: Response) => {
 // Download processed image
 app.get('/api/download/:filename', (req: Request, res: Response) => {
   try {
-    const filename = req.params.filename;
-    const filePath = path.join(__dirname, 'fotos_resultado', filename);
+    const { filename } = req.params;
+    
+    if (!filename) {
+      return res.status(400).json({ error: 'Nombre de archivo requerido' });
+    }
+    
+    const filePath = path.join(__dirname, '../fotos_resultado', filename);
     
     res.download(filePath, filename, (err: NodeJS.ErrnoException | null) => {
       if (err) {
@@ -138,7 +145,7 @@ app.get('/api/download/:filename', (req: Request, res: Response) => {
 });
 
 // Serve processed images
-app.use('/processed', express.static(path.join(__dirname, 'fotos_resultado')));
+app.use('/processed', express.static(path.join(__dirname, '../fotos_resultado')));
 
 // Error handling middleware
 app.use((error: any, req: Request, res: Response, next: NextFunction) => {

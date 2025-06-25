@@ -124,9 +124,27 @@ El archivo `titulos_imagenes.xlsx` contiene:
 - **Nombre Original**: Nombre del archivo original
 - **Estado**: Si se procesó exitosamente o hubo errores
 
-## 🔧 Despliegue con PM2
+## 🔧 Despliegue y Gestión
 
-### Instalación de PM2
+### 🚀 **Opción 1: Despliegue Simple (Recomendado para desarrollo)**
+
+```bash
+# Iniciar servidor en segundo plano
+./start-simple.sh
+
+# Ver estado del servidor
+./status.sh
+
+# Detener servidor
+./stop-simple.sh
+
+# Ver logs en tiempo real
+tail -f logs/out.log
+```
+
+### 🏭 **Opción 2: Despliegue con PM2 (Recomendado para producción)**
+
+#### Instalación de PM2
 ```bash
 # Instalar PM2 globalmente
 npm install -g pm2
@@ -135,7 +153,7 @@ npm install -g pm2
 bun add -g pm2
 ```
 
-### Comandos de PM2
+#### Comandos de PM2
 ```bash
 # Compilar frontend
 bun run build-frontend
@@ -165,6 +183,16 @@ bun run pm2:delete
 bun run pm2:monit
 ```
 
+# Detener la aplicación
+bun run pm2:stop
+
+# Eliminar del PM2
+bun run pm2:delete
+
+# Monitor en tiempo real
+bun run pm2:monit
+```
+
 ### Configuración de Producción
 El archivo `ecosystem.config.js` está configurado para:
 - **Auto-restart** en caso de fallos
@@ -179,6 +207,76 @@ El archivo `ecosystem.config.js` está configurado para:
 NODE_ENV=production
 PORT=3001
 GEMINI_API_KEY=tu_api_key_de_produccion
+```
+
+### 📊 **Gestión de Logs**
+```bash
+# Ver logs de salida en tiempo real
+tail -f logs/out.log
+
+# Ver logs de errores en tiempo real
+tail -f logs/error.log
+
+# Ver las últimas 50 líneas de logs
+tail -50 logs/out.log
+
+# Buscar en logs
+grep "error" logs/out.log
+grep "GEMINI" logs/out.log
+```
+
+### 🔧 **Resolución de Problemas**
+
+#### Error: "Port already in use"
+```bash
+# Verificar qué proceso usa el puerto
+lsof -i :3001
+
+# Detener el servidor si está ejecutándose
+./stop-simple.sh
+
+# O matar el proceso manualmente
+kill $(lsof -ti:3001)
+```
+
+#### Error: "GEMINI_API_KEY not found"
+```bash
+# Verificar que el archivo .env existe
+cat .env | grep GEMINI_API_KEY
+
+# Si no existe, copiar desde el ejemplo
+cp .env.example .env
+# Luego editar .env con tu API key
+```
+
+#### Error: "Permission denied"
+```bash
+# Dar permisos a los scripts
+chmod +x start-simple.sh stop-simple.sh status.sh
+
+# Crear directorio de logs con permisos
+mkdir -p logs && chmod 755 logs
+```
+
+### 🚀 **Scripts Disponibles**
+```bash
+# Desarrollo
+bun run dev              # Servidor en modo desarrollo
+bun run start            # Servidor directo
+
+# Gestión de procesos (Simple)
+bun run start-daemon     # Iniciar en segundo plano
+bun run stop-daemon      # Detener servidor
+bun run status-daemon    # Ver estado
+
+# PM2 (Producción)
+bun run pm2:start        # Iniciar con PM2
+bun run pm2:status       # Estado PM2
+bun run pm2:logs         # Logs PM2
+
+# Compilación
+bun run build-frontend   # Compilar solo frontend
+bun run build-server     # Compilar solo servidor
 ```
 
 This project was created using `bun init` in bun v1.2.15. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.

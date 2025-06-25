@@ -16,7 +16,7 @@ fi
 
 # Compilar frontend
 echo "📦 Compilando frontend..."
-cd public && bun build app.ts --outfile app.js --target browser
+cd public && bun build src/app.ts --outfile app.js --target browser
 cd ..
 
 # Crear directorio de logs si no existe

@@ -1,14 +1,15 @@
 {
   "name": "mies-conservacion",
-  "module": "index.ts",
+  "module": "src/index.ts",
   "type": "module",
   "private": true,
   "scripts": {
-    "dev": "bun run server.ts",
-    "start": "bun run server.ts",
-    "build": "bun build server.ts --outdir ./dist",
-    "build-frontend": "cd public && bun build app.ts --outfile app.js --target browser",
-    "process-cli": "bun run index.ts",
+    "dev": "bun run src/server.ts",
+    "start": "bun run src/server.ts",
+    "build": "bun build src/server.ts --outdir ./dist --target node",
+    "build-server": "bun build src/server.ts --outdir ./dist --target node",
+    "build-frontend": "cd public && bun build src/app.ts --outfile app.js --target browser",
+    "process-cli": "bun run src/index.ts",
     "pm2:start": "pm2 start ecosystem.config.cjs",
     "pm2:stop": "pm2 stop ecosystem.config.cjs",
     "pm2:restart": "pm2 restart ecosystem.config.cjs",
@@ -16,7 +17,10 @@
     "pm2:delete": "pm2 delete ecosystem.config.cjs",
     "pm2:logs": "pm2 logs mies-conservacion",
     "pm2:status": "pm2 status",
-    "pm2:monit": "pm2 monit"
+    "pm2:monit": "pm2 monit",
+    "start-daemon": "./scripts/start-simple.sh",
+    "stop-daemon": "./scripts/stop-simple.sh",
+    "status-daemon": "./scripts/status.sh"
   },
   "devDependencies": {
     "@types/bun": "latest",
