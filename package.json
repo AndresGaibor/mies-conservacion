@@ -3,16 +3,28 @@
   "module": "index.ts",
   "type": "module",
   "private": true,
+  "scripts": {
+    "dev": "bun run server.ts",
+    "start": "bun run server.ts",
+    "build": "bun build server.ts --outdir ./dist",
+    "process-cli": "bun run index.ts"
+  },
   "devDependencies": {
-    "@types/bun": "latest"
+    "@types/bun": "latest",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "@types/multer": "^1.4.12"
   },
   "peerDependencies": {
     "typescript": "^5"
   },
   "dependencies": {
     "@google/generative-ai": "^0.24.1",
+    "cors": "^2.8.5",
     "dotenv": "^16.5.0",
+    "express": "^4.19.2",
     "heic-convert": "^2.1.0",
+    "multer": "^1.4.5-lts.1",
     "sharp": "^0.34.2",
     "xlsx": "^0.18.5"
   }

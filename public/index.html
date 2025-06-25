@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MIES Conservación - Captura de Fotos</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#2563eb">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="MIES Conservación">
+</head>
+<body>
+    <div class="app">
+        <header class="header">
+            <h1>MIES Conservación</h1>
+            <p>Captura y procesa imágenes con IA</p>
+        </header>
+
+        <main class="main">
+            <!-- Camera Section -->
+            <section class="camera-section" id="cameraSection">
+                <div class="camera-container">
+                    <video id="video" autoplay playsinline muted></video>
+                    <canvas id="canvas" style="display: none;"></canvas>
+                    
+                    <div class="camera-overlay">
+                        <div class="camera-frame"></div>
+                    </div>
+                    
+                    <div class="camera-controls">
+                        <button id="switchCamera" class="control-btn secondary" title="Cambiar cámara">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M20 4h-3.17L15 2H9L7.17 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zM9 4h6l1.83 2H19v12H5V6h3.17L9 4zm3 5c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zm0 8c-1.65 0-3-1.35-3-3s1.35-3 3-3 3 1.35 3 3-1.35 3-3 3z"/>
+                            </svg>
+                        </button>
+                        
+                        <button id="captureBtn" class="capture-btn" title="Tomar foto">
+                            <div class="capture-inner"></div>
+                        </button>
+                        
+                        <input type="file" id="fileInput" accept="image/*" capture="camera" style="display: none;">
+                        <button id="uploadBtn" class="control-btn secondary" title="Subir imagen">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="camera-error" id="cameraError" style="display: none;">
+                    <p>No se pudo acceder a la cámara</p>
+                    <button id="retryCamera" class="btn primary">Reintentar</button>
+                </div>
+            </section>
+
+            <!-- Photo Preview Section -->
+            <section class="preview-section" id="previewSection" style="display: none;">
+                <div class="preview-container">
+                    <img id="previewImage" alt="Foto capturada">
+                    
+                    <div class="preview-controls">
+                        <button id="retakeBtn" class="btn secondary">↩️ Otra Foto</button>
+                        <button id="processBtn" class="btn primary">📤 Procesar en 2do Plano</button>
+                        <button id="quickCaptureBtn" class="btn success">⚡ Captura Rápida</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Processing Section -->
+            <section class="processing-section" id="processingSection" style="display: none;">
+                <div class="processing-container">
+                    <div class="spinner"></div>
+                    <h3>Procesando imagen...</h3>
+                    <p>Extrayendo información con IA</p>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Results Section -->
+            <section class="results-section" id="resultsSection" style="display: none;">
+                <div class="results-container">
+                    <h3>Resultado del procesamiento</h3>
+                    
+                    <div class="result-image">
+                        <img id="resultImage" alt="Imagen procesada">
+                    </div>
+                    
+                    <div class="result-info">
+                        <div class="info-item">
+                            <label>Título extraído:</label>
+                            <span id="extractedTitle">-</span>
+                        </div>
+                        
+                        <div class="info-item">
+                            <label>Nuevo nombre:</label>
+                            <span id="newFileName">-</span>
+                        </div>
+                        
+                        <div class="info-item">
+                            <label>Tamaño:</label>
+                            <span id="fileSize">-</span>
+                        </div>
+                        
+                        <div class="info-item">
+                            <label>Formato:</label>
+                            <span id="fileFormat">-</span>
+                        </div>
+                    </div>
+                    
+                    <div class="result-actions">
+                        <button id="downloadBtn" class="btn primary">Descargar</button>
+                        <button id="newPhotoBtn" class="btn secondary">Nueva foto</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Gallery Section -->
+            <section class="gallery-section" id="gallerySection">
+                <h3>Fotos procesadas</h3>
+                <div class="gallery-grid" id="galleryGrid">
+                    <!-- Photos will be added dynamically -->
+                </div>
+            </section>
+        </main>
+
+        <!-- Auto Capture Button -->
+        <button id="autoCaptureBtn" class="auto-capture-btn">
+            <span>⚡</span>
+            <span id="autoCaptureText">Captura Automática</span>
+        </button>
+
+        <!-- Status Toast -->
+        <div class="toast" id="toast"></div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

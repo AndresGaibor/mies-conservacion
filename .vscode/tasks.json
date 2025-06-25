@@ -1,0 +1,17 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "MIES Conservación - Dev Server",
+			"type": "shell",
+			"command": "bun",
+			"args": [
+				"run",
+				"server.ts"
+			],
+			"group": "build",
+			"isBackground": true,
+			"problemMatcher": []
+		}
+	]
+}

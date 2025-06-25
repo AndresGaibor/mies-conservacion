@@ -1,33 +1,97 @@
-# MIES Conservación - Procesador de Imágenes
+# 📱 MIES Conservación - Aplicación Móvil Web
 
-Aplicación para procesar imágenes HEIC usando Gemini AI para extraer códigos y renombrar automáticamente.
+Una **aplicación móvil web moderna** construida con **TypeScript** y **Bun** para capturar, procesar y gestionar imágenes utilizando **inteligencia artificial** de Google Gemini.
 
-## Características
+## ✨ Características Principales
 
-- 🔍 Extrae títulos y códigos de imágenes usando Gemini AI
-- 🖼️ Procesa archivos HEIC automáticamente
-- 📁 Renombra y copia imágenes a carpeta de resultado
-- ⚠️ Detecta y omite duplicados
-- 📊 Genera Excel con todos los títulos extraídos
+### 📷 Captura Avanzada
+- **Cámara en tiempo real** con soporte para múltiples dispositivos
+- **Alternancia entre cámara frontal y trasera**
+- **Subida de archivos** desde la galería del dispositivo
+- **Soporte completo para HEIC** (imágenes de iOS)
 
-## Configuración
+### 🤖 Procesamiento Inteligente
+- **Extracción automática de texto** usando Gemini AI
+- **Optimización de imágenes** con Sharp
+- **Compresión inteligente** sin pérdida de calidad
+- **Generación automática de nombres** basados en contenido
 
-1. Instalar dependencias:
+### 📱 Experiencia Móvil
+- **PWA (Progressive Web App)** instalable
+- **Interfaz totalmente responsiva**
+- **Soporte offline** para funciones básicas
+- **Diseño optimizado para touch**
+
+### 🔧 Tecnología Moderna
+- **TypeScript** para tipado estático
+- **Bun** como runtime y bundler
+- **Express** para el backend
+- **Vanilla JS** en el frontend (sin frameworks pesados)
+
+## 🚀 Instalación y Configuración
+
+### Prerrequisitos
+- **Bun** v1.0+ ([Instalar Bun](https://bun.sh))
+- **API Key de Google Gemini** ([Obtener aquí](https://makersuite.google.com/app/apikey))
+
+### 1. Clonar e Instalar
 ```bash
+git clone <tu-repositorio>
+cd mies-conservacion
 bun install
 ```
 
-2. Configurar API key de Gemini:
-   - Copia `.env.example` a `.env`
-   - Obtén tu API key en [Google AI Studio](https://makersuite.google.com/app/apikey)
-   - Reemplaza `tu_api_key_aqui` con tu API key real
-
+### 2. Configurar Variables de Entorno
 ```bash
+# Copia el archivo de ejemplo
 cp .env.example .env
-# Edita .env con tu API key
+
+# Edita .env y agrega tu API key de Gemini
+GEMINI_API_KEY=tu_api_key_aqui
 ```
 
-## Uso
+### 3. Ejecutar la Aplicación
+```bash
+# Desarrollo
+bun dev
+
+# Producción
+bun start
+```
+
+### 4. Abrir en el Navegador
+- **Desktop**: `http://localhost:3000`
+- **Móvil**: Escanea el código QR o usa la IP local
+
+## 🎯 Uso de la Aplicación
+
+### 1. **Capturar Imagen**
+- Toca **"Tomar Foto"** para usar la cámara
+- O **"Subir Archivo"** para seleccionar desde galería
+- Usa el **botón de cambio** para alternar cámaras
+
+### 2. **Procesar con IA**
+- Revisa la imagen en la vista previa
+- Toca **"Procesar Imagen"** 
+- La IA extraerá texto y optimizará la calidad
+
+### 3. **Descargar y Compartir**
+- Descarga la imagen procesada
+- Revisa la información extraída
+- Accede a la galería de imágenes procesadas
+
+## 📱 Instalación como PWA
+
+### En Móvil (iOS/Android):
+1. Abre la app en **Safari/Chrome**
+2. Toca **"Agregar a pantalla de inicio"**
+3. Confirma la instalación
+4. La app aparecerá como aplicación nativa
+
+### En Desktop:
+1. Abre en **Chrome/Edge**
+2. Busca el **ícono de instalación** en la barra de direcciones
+3. Haz clic en **"Instalar"**
 
 1. Coloca las imágenes HEIC en la carpeta `fotos/`
 2. Ejecuta el procesador:
